@@ -1,0 +1,30 @@
+<section class="hero-section">
+  <div class="hero-background">
+    <div class="hero-image-container">
+      <img
+        *ngFor="let image of heroImages; let i = index"
+        [src]="getCurrentImageUrl()"
+        [class.active]="i === currentImageIndex"
+        class="hero-image"
+        alt="Architectural Design"
+      />
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title fade-in">Tirumala Planners</h1>
+    <p class="hero-subtitle fade-in-delay-1">Precision in Every Line, Excellence in Every Design</p>
+    <p class="hero-description fade-in-delay-2">
+      Your trusted partner for professional CADD planning, architectural drawings,
+      and innovative 3D modeling solutions. Based in Chennai, serving projects
+      across residential, commercial, and industrial sectors.
+    </p>
+    <div class="hero-buttons fade-in-delay-3">
+      <button (click)="scrollToProjects()" class="hero-btn-primary">
+        View Projects
+      </button>
+      <a href="#contact" class="hero-btn-secondary">Start Your Project</a>
+    </div>
+  </div>
+</section>

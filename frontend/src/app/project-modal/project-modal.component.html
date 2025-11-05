@@ -1,0 +1,27 @@
+<div class="modal-backdrop" *ngIf="isOpen && project" (click)="onBackdropClick($event)" [@fadeIn]>
+  <div class="modal-content" (click)="stopPropagation($event)" [@slideIn]>
+    <button class="close-button" (click)="onClose()">
+      <span class="close-icon">&times;</span>
+    </button>
+
+    <div class="modal-body">
+      <div class="modal-image-container">
+        <img [src]="project.imageUrl" [alt]="project.title" class="modal-image" />
+      </div>
+
+      <div class="modal-info">
+        <span class="modal-category">
+          {{ project.category === 'elevation' ? 'Elevation Design' : 'Architectural Plan' }}
+        </span>
+        <h2 class="modal-title">{{ project.title }}</h2>
+        <p class="modal-description">{{ project.description }}</p>
+
+        <div class="modal-actions">
+          <a href="#contact" class="modal-btn-primary" (click)="onClose()">
+            Discuss Similar Project
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
