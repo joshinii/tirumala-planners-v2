@@ -1,0 +1,107 @@
+<nav class="navbar">
+  <div class="navbar-brand thq-heading-2 ">
+    <a href="#">Tirumala Planners</a>
+  </div>
+
+  <div class="nav-links">
+    <li><a href="#services" routerLinkActive="active">Services</a></li>
+    <li><a href="#projects" routerLinkActive="active">Projects</a></li>
+    <li><a href="#testimonial" routerLinkActive="active">Testimonials</a></li>
+    <li><a href="#contact" routerLinkActive="active">Contact</a></li>
+  </div>
+</nav>
+
+<div id="preloader">
+  <div class="loader"></div>
+</div>
+<div class="home-container">
+  <section id="hero" class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Tirumala Planners</h1>
+      <p class="hero-subtitle">Precision in Every Line, Excellence in Every Design</p>
+      <p class="hero-description">
+        Your trusted partner for professional CADD planning, architectural drawings,
+        and innovative 3D modeling solutions. Based in Chennai, serving projects
+        across residential, commercial, and industrial sectors.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="hero-btn-primary">Start Your Project</a>
+        <a href="#projects" class="hero-btn-secondary">View Our Work</a>
+      </div>
+    </div>
+  </section>
+  <section id="services">
+    <app-steps></app-steps>
+  </section>
+  <br><br>
+  <section id="cta">
+    <app-cta></app-cta>
+  </section>
+  <section id="projects">
+    <app-projects></app-projects>
+  </section>
+  <section id="testimonial">
+    <app-testimonial></app-testimonial>
+  </section>
+  <section id="contact">
+    <app-contact></app-contact>
+  </section>
+</div>
+<script>
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    let currentSection = '';
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= sectionTop - 120) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentSection}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth',
+      });
+    });
+  });
+</script>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Tirumala Planners</h3>
+      <p>Professional CADD Planning & Design Services</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#testimonial">Why Choose Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact Info</h4>
+      <p>93/6, Indira Nagar, Chennai</p>
+      <p>Phone: +91 9841598321</p>
+      <p>Email: amnaagraj&#64;gmail.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Tirumala Planners. All rights reserved.</p>
+  </div>
+</footer>

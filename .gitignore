@@ -1,0 +1,13 @@
+node_modules/
+
+/frontend/.angular/cache/
+/frontend/.angular/
+frontend/node_modules/
+/frontend/dist/
+/frontend/.vscode/
+
+backend/node_modules/
+backend/dist/
+backend/logs/
+backend/coverage/
+backend/.vscode/

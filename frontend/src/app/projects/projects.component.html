@@ -1,0 +1,28 @@
+<div class="steps-container1 thq-section-padding">
+    <div class="steps-max-width thq-section-max-width">
+        <div class="steps-container2 thq-grid-2">
+            <div class="backdrop">
+                <h2 class="thq-heading-2">Our Work Portfolio</h2>
+                <p class="thq-body-large">Explore our collection of professionally crafted architectural plans and elevation designs.</p>
+                <br>
+                <!-- Button group for selecting categories -->
+                <div class="button-group">
+                    <button [class.active]="category === 'elevation'" (click)="chooseCategory('elevation')">
+                        Elevation Designs
+                    </button>
+                    <button [class.active]="category === 'plan'" (click)="chooseCategory('plan')">
+                        Architectural Plans
+                    </button>
+
+                </div>
+            </div>
+            <!-- Project Gallery -->
+            <div class="project-gallery">
+                <div *ngIf="currentCategory">
+                    <!-- File viewer dynamically updates based on selected category -->
+                    <app-file-viewer [category]="currentCategory"></app-file-viewer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

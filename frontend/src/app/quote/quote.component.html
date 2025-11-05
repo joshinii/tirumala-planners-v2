@@ -1,0 +1,31 @@
+<div class="custom-container">
+    <div class="form-header">
+        <h3 class="thq-heading-3">Request a Free Consultation</h3>
+        <p class="form-subheading">Share your project details and we'll get back to you within 24 hours</p>
+    </div>
+    <br>
+    <div>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="your.email@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" [(ngModel)]="phone" name="phone" placeholder="+91 XXXXXXXXXX"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="message">Project Details *</label>
+                <textarea id="message" [(ngModel)]="message" name="message" placeholder="Tell us about your project requirements, timeline, and any specific needs..."
+                    required rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Request</button>
+        </form>
+    </div>
+</div>
+<app-loader [isLoading]="isLoading"></app-loader>
