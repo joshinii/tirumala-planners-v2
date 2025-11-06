@@ -2,8 +2,8 @@
   "version": 2,
   "framework": "angular",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/tirumala-planners-v2",
+  "outputDirectory": "dist/website",
   "routes": [
-    { "src": "/(.*)", "dest": "/dist/tirumala-planners-v2/$1" }
+    { "src": "/(.*)", "dest": "/dist/website/$1" }
   ]
 }
