@@ -534,11 +534,11 @@ footer.footer {
 }
 
 .thq-mask-image-vertical {
-    mask-image: linear-gradient(to bottom, transparent, black 1%, black 99%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, var(--dl-color-theme-primary1) 1%, var(--dl-color-theme-primary1) 99%, transparent);
 }
 
 .thq-mask-image-horizontal {
-    mask-image: linear-gradient(to right, transparent, black 1%, black 99%, transparent);
+    mask-image: linear-gradient(to right, transparent, var(--dl-color-theme-primary1) 1%, var(--dl-color-theme-primary1) 99%, transparent);
 }
 
 .thq-img-scale {
