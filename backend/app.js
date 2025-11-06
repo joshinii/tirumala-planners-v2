@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sqlite3 = require('better-sqlite3');
+const Database = require('better-sqlite3');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const path = require('path');
@@ -19,7 +19,6 @@ if (missingEnvVars.length > 0) {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 
 // Middleware
 app.use(bodyParser.json());
@@ -45,22 +44,14 @@ app.get('/', (req, res) => {
   res.send('Hello from your Node.js server!');
 });
 
-//to access assets
+// Serve static assets
 app.use('/api/assets', cors(), express.static(path.join(__dirname, 'assets')));
 
+// ✅ Database setup with better-sqlite3
+const db = new Database('./data.db');
 
-// Database setup
-const db = new sqlite3.Database('./data.db', (err) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log('Connected to the SQLite database.');
-  }
-});
-
-// db.run(`DROP TABLE contacts`);
-// Create Contacts table with phone number column
-db.run(`
+// Create Contacts table (synchronous)
+db.prepare(`
   CREATE TABLE IF NOT EXISTS contacts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -68,9 +59,9 @@ db.run(`
     phone TEXT NOT NULL,
     message TEXT NOT NULL
   )
-`);
+`).run();
 
-// API endpoint to save contact details and send an email
+// ✅ API endpoint to save contact details and send an email
 app.post('/api/send-quote', async (req, res) => {
   const { name, email, phone, message } = req.body;
 
@@ -79,19 +70,12 @@ app.post('/api/send-quote', async (req, res) => {
   }
 
   try {
-    // Insert contact into database first
-    await new Promise((resolve, reject) => {
-      db.run(
-        `INSERT INTO contacts (name, email, phone, message) VALUES (?, ?, ?, ?)`,
-        [name, email, phone, message],
-        (err) => {
-          if (err) reject(err);
-          else resolve();
-        }
-      );
-    });
+    // Insert contact synchronously (no callbacks or promises)
+    db.prepare(
+      `INSERT INTO contacts (name, email, phone, message) VALUES (?, ?, ?, ?)`
+    ).run(name, email, phone, message);
 
-    // Nodemailer configuration
+    // Send email using nodemailer
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -100,7 +84,6 @@ app.post('/api/send-quote', async (req, res) => {
       },
     });
 
-    // Email content
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_OWNER,
@@ -112,25 +95,23 @@ app.post('/api/send-quote', async (req, res) => {
       \nMessage: ${message}`,
     };
 
-    // Send email
     await transporter.sendMail(mailOptions);
     res.status(200).json({ text: 'Form submitted and email sent successfully.' });
+
   } catch (error) {
     console.error('Error processing request:', error);
     res.status(500).json({ text: 'Failed to send email.' });
   }
 });
 
+// Asset routes
 app.get('/api/assets/:file', (req, res) => {
   const filePath = path.resolve(__dirname, 'assets', req.params.file);
-
-  // Check if the file exists
   if (!fs.existsSync(filePath)) {
-    console.log('__dirname: ' + __dirname + 'file name: ' + req.params.file);
+    console.log('__dirname: ' + __dirname + ' file name: ' + req.params.file);
     return res.status(404).send('File not found');
   }
 
-  // Dynamically set Content-Type based on file extension
   const ext = path.extname(filePath).toLowerCase();
   const mimeTypes = {
     '.pdf': 'application/pdf',
@@ -141,31 +122,25 @@ app.get('/api/assets/:file', (req, res) => {
     '.svg': 'image/svg+xml',
   };
 
-  const contentType = mimeTypes[ext] || 'application/octet-stream'; // Default to binary stream
+  const contentType = mimeTypes[ext] || 'application/octet-stream';
   res.setHeader('Content-Type', contentType);
-
-  // Inline content disposition
   res.setHeader('Content-Disposition', 'inline');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-
-  // Serve the file
   res.sendFile(filePath);
 });
 
-
 app.get('/api/files', (req, res) => {
   try {
-    const category = req.query.category; // Accept category as a query parameter
-
+    const category = req.query.category;
     const directoryPath = path.join(__dirname, 'assets');
     const allFiles = fs.readdirSync(directoryPath);
 
     const filteredFiles = allFiles.filter((file) => {
-      // Filter files based on category
       if (category === 'elevation') return file.startsWith('elevation_');
       if (category === 'plan') return file.startsWith('plan_');
-      return true; // Default: return all files
+      return true;
     });
+
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
     res.json(filteredFiles);
   } catch (error) {
@@ -174,13 +149,11 @@ app.get('/api/files', (req, res) => {
   }
 });
 
-
-//Error handling
+// Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
-
 
 // Start server
 app.listen(PORT, () => {
