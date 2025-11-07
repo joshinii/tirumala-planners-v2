@@ -1,9 +1,19 @@
 {
   "version": 2,
-  "framework": "angular",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/website",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist/website" }
+    }
+  ],
   "routes": [
-    { "src": "/(.*)", "dest": "/dist/website/$1" }
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
   ]
 }
