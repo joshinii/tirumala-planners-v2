@@ -1,11 +1,11 @@
 h1,
 h2,
 h3 {
-    color: #a83232;
+    color: #2D3748;
 }
 
 button {
-    background-color: #a83232;
+    background-color: #4A5568;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -15,7 +15,7 @@ button {
 }
 
 button:hover {
-    background-color: #8b2c2c;
+    background-color: #2D3748;
 }
 
 input,
@@ -28,7 +28,7 @@ textarea {
 }
 
 footer.footer {
-    background-color: #7b241c;
+    background-color: #1A202C;
     color: #fff;
     padding: 40px 20px 20px;
 }
@@ -49,7 +49,7 @@ footer.footer {
 }
 
 .footer-section h4 {
-    color: #F5D1B0;
+    color: #E2E8F0;
     margin-bottom: 15px;
     font-size: 1.1rem;
 }
@@ -77,7 +77,7 @@ footer.footer {
 }
 
 .footer-section ul li a:hover {
-    color: #F5D1B0;
+    color: #E2E8F0;
 }
 
 .footer-bottom {
@@ -114,10 +114,10 @@ footer.footer {
     --dl-size-size-xxlarge: 288px;
     --dl-size-size-maxwidth: 1400px;
     --dl-color-theme-accent1: #FFFFFF;
-    --dl-color-theme-accent2: #F5D1B0;
+    --dl-color-theme-accent2: #E2E8F0;
     --dl-radius-radius-round: 50%;
-    --dl-color-theme-primary1: #BF4408;
-    --dl-color-theme-primary2: #E65103;
+    --dl-color-theme-primary1: #4A5568;
+    --dl-color-theme-primary2: #2D3748;
     --dl-space-space-halfunit: 8px;
     --dl-space-space-sixunits: 96px;
     --dl-space-space-twounits: 32px;
@@ -127,10 +127,10 @@ footer.footer {
     --dl-space-space-fiveunits: 80px;
     --dl-space-space-fourunits: 64px;
     --dl-color-theme-secondary1: #FFFFFF;
-    --dl-color-theme-secondary2: #FBF1EB;
+    --dl-color-theme-secondary2: #F7FAFC;
     --dl-space-space-threeunits: 48px;
-    --dl-color-theme-neutral-dark: #7b241c;
-    --dl-color-theme-brown:#7b241c;
+    --dl-color-theme-neutral-dark: #1A202C;
+    --dl-color-theme-brown:#2D3748;
     --dl-radius-radius-cardradius: 8px;
     --dl-color-theme-neutral-light: #FBFAF9;
     --dl-radius-radius-imageradius: 8px;
